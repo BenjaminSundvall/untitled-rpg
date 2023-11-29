@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsflby27u7gjs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7ypt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="ActionLabel" type="Label"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_d7ypt")
+text = "Dummy Ability
+"
+horizontal_alignment = 1
+vertical_alignment = 1
