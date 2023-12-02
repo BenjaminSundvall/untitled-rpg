@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn1bo8mdotfp6"]
+
+[ext_resource type="PackedScene" uid="uid://cq331825owjhk" path="res://characters/Character.tscn" id="1_fv2gs"]
+[ext_resource type="Texture2D" uid="uid://v3vdg5wbxspo" path="res://assets/dummy_tileset/Isometric/floor_E.png" id="1_xvdwe"]
+[ext_resource type="PackedScene" uid="uid://d2e31t8ummm22" path="res://characters/PlayerController.tscn" id="2_awsdj"]
+
+[node name="TestArea" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1350)
+scale = Vector2(7, 7)
+texture = ExtResource("1_xvdwe")
+
+[node name="Node" parent="." instance=ExtResource("2_awsdj")]
+
+[node name="Character" parent="Node" instance=ExtResource("1_fv2gs")]
