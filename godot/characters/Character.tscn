@@ -440,13 +440,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_26rx1"]
 
 [node name="Character" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_q60st")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -195)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Characters"]]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_lqq7m")
 animation = &"idle_3"
-frame_progress = 0.881533
+frame_progress = 0.337032
+offset = Vector2(0, -195)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(2.5, 1.5)
