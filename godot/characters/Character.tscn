@@ -447,7 +447,7 @@ script = ExtResource("1_q60st")
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_lqq7m")
 animation = &"idle_3"
-frame_progress = 0.337032
+frame_progress = 0.390472
 offset = Vector2(0, -195)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

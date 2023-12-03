@@ -16,9 +16,9 @@ const NUM_DIRECTIONS = 8
 
 func _physics_process(delta: float) -> void:
     pass
-    
 
-func move_dir(direction : Vector2):
+
+func _on_move_dir(direction: Vector2) -> void:
     if direction:
         var angle_deg = rad_to_deg(direction.angle())
         self.heading = int(round(NUM_DIRECTIONS * angle_deg / 360) + NUM_DIRECTIONS + 1) % NUM_DIRECTIONS      # 45 degree increments

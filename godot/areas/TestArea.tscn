@@ -8,6 +8,8 @@
 
 [node name="BasicTileMap" parent="." instance=ExtResource("1_0duwu")]
 
-[node name="Node" parent="BasicTileMap" instance=ExtResource("2_awsdj")]
+[node name="Character" parent="BasicTileMap" instance=ExtResource("1_fv2gs")]
 
-[node name="Character" parent="BasicTileMap/Node" instance=ExtResource("1_fv2gs")]
+[node name="PlayerController" parent="BasicTileMap/Character" instance=ExtResource("2_awsdj")]
+
+[connection signal="move_dir" from="BasicTileMap/Character/PlayerController" to="BasicTileMap/Character" method="_on_move_dir"]
