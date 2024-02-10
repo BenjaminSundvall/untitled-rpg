@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx5gc2awsc2t0"]
+
+[ext_resource type="Script" path="res://combat/CombatScreen.gd" id="1_ock37"]
+[ext_resource type="PackedScene" uid="uid://dhvo41lv1t564" path="res://combat/actionbar/ActionBar.tscn" id="2_2w7gf"]
+
+[node name="CombatSceen" type="Node2D"]
+script = ExtResource("1_ock37")
+
+[node name="ActionBar" parent="." instance=ExtResource("2_2w7gf")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_vertical = 0

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://yn77wkv07m3b"]
+
+[ext_resource type="Script" path="res://combat/battler/Battler.gd" id="1_ioq2p"]
+
+[node name="Battler" type="Node2D"]
+script = ExtResource("1_ioq2p")
+
+[node name="ActionList" type="Node2D" parent="."]

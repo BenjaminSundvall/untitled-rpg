@@ -1,5 +1,5 @@
-class_name StrikeAction extends Action
+class_name StrikeAction extends OldAction
 
 func _init() -> void:
-    self.name = "Strike"
-    self.charge_cost = 1
+	self.name = "Strike"
+	self.charge_cost = 1

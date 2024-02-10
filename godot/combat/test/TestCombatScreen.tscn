@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckrxvrewnupxf"]
+
+[ext_resource type="Script" path="res://combat/test/TestCombatScreen.gd" id="1_p3ap0"]
+[ext_resource type="PackedScene" uid="uid://dx5gc2awsc2t0" path="res://combat/CombatScreen.tscn" id="2_pi8ci"]
+[ext_resource type="PackedScene" uid="uid://bbtushi0f51pd" path="res://combat/test/TestBattler.tscn" id="3_qnbie"]
+
+[node name="TestCombatScreen" type="Node2D" node_paths=PackedStringArray("battler")]
+script = ExtResource("1_p3ap0")
+battler = NodePath("Battler")
+
+[node name="CombatScreen" parent="." instance=ExtResource("2_pi8ci")]
+
+[node name="Battler" parent="." instance=ExtResource("3_qnbie")]

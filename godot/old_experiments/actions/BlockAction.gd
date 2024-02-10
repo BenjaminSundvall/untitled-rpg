@@ -1,5 +1,5 @@
-class_name BlockAction extends Action
+class_name BlockAction extends OldAction
 
 func _init() -> void:
-    self.name = "Block"
-    self.charge_cost = 1
+	self.name = "Block"
+	self.charge_cost = 1
