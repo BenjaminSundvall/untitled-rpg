@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkt6y2wvuh8am"]
+
+[ext_resource type="Script" path="res://Multiplayer/NetEngine.gd" id="1_bhqfa"]
+[ext_resource type="PackedScene" uid="uid://b2l8qq2nntsbl" path="res://Multiplayer/NetEngine.tscn" id="2_8qu5x"]
+
+[node name="NetworkTest" type="Node2D"]
+script = ExtResource("1_bhqfa")
+
+[node name="MultiplayerManager" parent="." instance=ExtResource("2_8qu5x")]
+
+[node name="Start Server" type="Button" parent="."]
+offset_left = 79.0
+offset_top = 106.0
+offset_right = 245.0
+offset_bottom = 181.0
+text = "Start Server"
+
+[node name="Start Client" type="Button" parent="."]
+offset_left = 255.0
+offset_top = 105.0
+offset_right = 421.0
+offset_bottom = 180.0
+text = "Start Client"
+
+[node name="some button" type="Button" parent="."]
+offset_left = 430.0
+offset_top = 106.0
+offset_right = 596.0
+offset_bottom = 181.0
+text = "***"
+
+[node name="NameInput" type="TextEdit" parent="."]
+offset_left = 80.0
+offset_top = 66.0
+offset_right = 596.0
+offset_bottom = 97.0
+text = "Serah"
+
+[connection signal="pressed" from="Start Server" to="." method="start_server"]
+[connection signal="pressed" from="Start Client" to="." method="start_client"]
