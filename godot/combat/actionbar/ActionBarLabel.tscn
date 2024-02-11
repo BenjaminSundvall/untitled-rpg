@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkxy8o20pqijl"]
+[gd_scene load_steps=3 format=3 uid="uid://dkxy8o20pqijl"]
 
 [ext_resource type="Script" path="res://combat/actionbar/ActionBarLabel.gd" id="1_rbqiq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3ykf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="ActionBarLabel" type="MarginContainer"]
 anchors_preset = 15
@@ -8,8 +19,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 script = ExtResource("1_rbqiq")
 
 [node name="Text" type="Label" parent="."]
 layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_p3ykf")
 text = "Action"
+horizontal_alignment = 1
+vertical_alignment = 1

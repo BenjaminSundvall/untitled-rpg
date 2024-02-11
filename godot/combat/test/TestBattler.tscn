@@ -3,16 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://yn77wkv07m3b" path="res://combat/battler/Battler.tscn" id="1_6l3il"]
 [ext_resource type="PackedScene" uid="uid://b2uirjd7kytfn" path="res://combat/battler/BattlerAction.tscn" id="2_msca1"]
 
-[node name="Battler" instance=ExtResource("1_6l3il")]
+[node name="TestBattler" instance=ExtResource("1_6l3il")]
 
 [node name="Attack" parent="ActionList" index="0" instance=ExtResource("2_msca1")]
 action_name = "Attack"
 charge_cost = 1
 
-[node name="Heal" parent="ActionList" index="1" instance=ExtResource("2_msca1")]
-action_name = "Heal"
+[node name="Use Potion" parent="ActionList" index="1" instance=ExtResource("2_msca1")]
+action_name = "Use Potion"
 charge_cost = 1
 
-[node name="Summon" parent="ActionList" index="2" instance=ExtResource("2_msca1")]
+[node name="Heal" parent="ActionList" index="2" instance=ExtResource("2_msca1")]
+action_name = "Heal"
+charge_cost = 2
+
+[node name="Summon" parent="ActionList" index="3" instance=ExtResource("2_msca1")]
 action_name = "Summon"
 charge_cost = 3

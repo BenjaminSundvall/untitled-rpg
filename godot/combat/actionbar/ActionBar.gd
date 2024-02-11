@@ -2,13 +2,18 @@ class_name Combat_ActionBar extends Control
 
 @onready var scene_action_label : PackedScene = load("res://combat/actionbar/ActionBarLabel.tscn")
 
-@onready var action_queue : GridContainer = $Bar/ActionQueue
-
+@onready var action_queue_node : Control = $Bar/ActionQueue
 @onready var charge_label : Label = $Markers/ChargeLabel
 @onready var charge_bar : ProgressBar = $Bar/ChargeBar
+@onready var charge_bar_outline : Panel = $Bar/ChargeBar/AutoComboOutline
+
+var action_queue : Array[Combat_Action] = []
+var number_actions : int = 0
+var max_actions : int = 4
+var actions_full : bool = false
 
 # ------------------------------------------------------------------------------
-#    ActionTime control [VISUALY ONLY!]
+#    ActionTime control
 # ------------------------------------------------------------------------------
 
 func set_progress_to(progress : float) -> void:
@@ -16,39 +21,100 @@ func set_progress_to(progress : float) -> void:
 	charge_label.text = str(snappedf(progress, 0.1)) + "/" + str(charge_bar.max_value)
 
 # ------------------------------------------------------------------------------
-#    Action control [VISUALY ONLY!]
+#    Action control
 # ------------------------------------------------------------------------------
 
 func set_numb_of_actions(number_of_actions : int) -> void:
-	action_queue.columns = number_of_actions
+	max_actions = number_of_actions
 	
 	# TODO: Make bar wider as well? Makes it seem longer
 	charge_bar.max_value = number_of_actions
 
 func are_actions_full() -> bool:
-	return action_queue.get_child_count() >= charge_bar.max_value
+	return actions_full
+
+func try_add_action(action : Combat_Action) -> bool:
+	if action.charge_cost + number_actions <= max_actions:
+		add_action(action)
+		return true
+	return false
 
 func add_action(action : Combat_Action) -> void:
-	var new_label : Combat_ActionBarLabel = scene_action_label.instantiate()
-	new_label.set_action(action)
+	action_queue.append(action)
 	
-	action_queue.add_child(new_label)
+	_add_label_at(number_actions, action)
+	
+	number_actions += action.charge_cost
+	actions_full = number_actions >= max_actions
 
 func remove_action(action : Combat_Action) -> bool:
-	for action_label : Combat_ActionBarLabel in action_queue.get_children():
-		if action_label.is_action(action):
-			action_queue.remove_child(action_label)
-			action_label.queue_free()
-			return true
+	var index_of_action = action_queue.find(action)
+	if index_of_action != -1:
+		
+		# Remove from queue
+		action_queue.remove_at(index_of_action)
+		number_actions -= action.charge_cost
+		actions_full = number_actions >= max_actions
+		
+		_remove_label_at(index_of_action)
+		
+		return true
 	return false
 
 func remove_all_actions() -> bool:
-	if action_queue.get_child_count() == 0:
+	if number_actions == 0 and action_queue_node.get_child_count() == 0:
 		return false
 	
-	for action_label in action_queue.get_children():
-		action_queue.remove_child(action_label)
-		action_label.queue_free()
+	number_actions = 0
+	action_queue = []
+	actions_full = number_actions >= max_actions
+	
+	_remove_all_labels()
 	
 	return true
 
+
+# ------------------------------------------------------------------------------
+#    Update of Labels [VISUALS]
+# ------------------------------------------------------------------------------
+
+func _update_labels():
+	for i in len(action_queue):
+		pass
+
+func _add_label_at(index_of_label : int, action : Combat_Action):
+	var new_label : Combat_ActionBarLabel = scene_action_label.instantiate()
+	new_label.set_action(action)
+	
+	new_label.set_poisiton(index_of_label, index_of_label + action.charge_cost, max_actions)
+	
+	action_queue_node.add_child(new_label)
+
+func _remove_label_at(index_of_label : int) -> void:
+	var action_label = action_queue_node.get_child(index_of_label)
+	action_queue_node.remove_child(action_label)
+	action_label.queue_free()
+	
+	for i in range(index_of_label, max_actions):
+		# Position labels correctly
+		pass
+
+func _remove_all_labels() -> void:
+	for action_label in action_queue_node.get_children():
+		action_queue_node.remove_child(action_label)
+		action_label.queue_free()
+
+
+# ------------------------------------------------------------------------------
+#    Miscellaneous
+# ------------------------------------------------------------------------------
+
+func charge_enough_for_actions(charge : float) -> bool:
+	return charge >= number_actions
+
+func mark_bar(active : bool):
+	if active:
+		charge_bar_outline.show()
+	else:
+		charge_bar_outline.hide()
+	
