@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx5gc2awsc2t0"]
+[gd_scene load_steps=4 format=3 uid="uid://dx5gc2awsc2t0"]
 
 [ext_resource type="Script" path="res://combat/CombatScreen.gd" id="1_ock37"]
 [ext_resource type="PackedScene" uid="uid://dhvo41lv1t564" path="res://combat/actionbar/ActionBar.tscn" id="2_2w7gf"]
+[ext_resource type="PackedScene" uid="uid://di2u16kh77dxm" path="res://combat/menu/CombatMenu.tscn" id="3_x056l"]
 
 [node name="CombatSceen" type="Node2D"]
 script = ExtResource("1_ock37")
@@ -14,3 +15,9 @@ anchor_right = 0.5
 offset_right = 1920.0
 offset_bottom = 1080.0
 grow_vertical = 0
+
+[node name="CombatMenu" parent="." instance=ExtResource("3_x056l")]
+offset_left = 62.0
+offset_top = 1029.0
+offset_right = 506.0
+offset_bottom = 1029.0

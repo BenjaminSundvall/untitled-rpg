@@ -7,6 +7,7 @@ var charge_status : ChargeStatus = ChargeStatus.CHARGING
 var actions_commited = false
 
 @onready var action_bar : Combat_ActionBar = $ActionBar
+@onready var _combat_menu : Combat_Menu = $CombatMenu
 
 # Required 
 var battler : Combat_Battler
@@ -26,6 +27,10 @@ func prepare(battler_init : Combat_Battler) -> void:
 	discharge_rate = battler.max_charge / battler.full_discharge_time
 	
 	action_bar.set_numb_of_actions(battler.max_charge)
+	
+	_combat_menu.prepare(self)
+	_combat_menu.set_options_of_menu(battler.get_actions())
+
 
 # ------------------------------------------------------------------------------
 #    Handle runtime
@@ -52,6 +57,7 @@ func _update_charge(delta: float) -> void:
 		charge = max(charge - delta * discharge_rate, 0)
 		if charge == 0:
 			charge_status = ChargeStatus.CHARGING
+
 
 # ------------------------------------------------------------------------------
 #    Action handling

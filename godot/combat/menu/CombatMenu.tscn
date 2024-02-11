@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://di2u16kh77dxm"]
+
+[ext_resource type="Script" path="res://combat/menu/CombatMenu.gd" id="1_js7b5"]
+[ext_resource type="PackedScene" uid="uid://b8n38na4xcitb" path="res://combat/menu/CombatMenuItem.tscn" id="2_2b6ji"]
+[ext_resource type="Texture2D" uid="uid://d0vsgfrq5jx4t" path="res://assets/test/triangle_right.png" id="3_bf3x7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyo1g"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="CombatMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 373.0
+script = ExtResource("1_js7b5")
+
+[node name="List" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -182.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Items" type="VBoxContainer" parent="List"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CombatMenuItem" parent="List/Items" instance=ExtResource("2_2b6ji")]
+layout_mode = 2
+
+[node name="CombatMenuItem2" parent="List/Items" instance=ExtResource("2_2b6ji")]
+layout_mode = 2
+
+[node name="CombatMenuItem3" parent="List/Items" instance=ExtResource("2_2b6ji")]
+layout_mode = 2
+
+[node name="CommitButton" type="Button" parent="List"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_hyo1g")
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="List/CommitButton"]
+modulate = Color(0.619608, 0.466667, 0.243137, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bf3x7")
+expand_mode = 3
