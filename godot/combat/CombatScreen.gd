@@ -1,15 +1,18 @@
 class_name Combat_CombatScreen extends Node2D
 
+### Charge trackers ###
 var charge : float = 0
 enum ChargeStatus {CHARGING, FULL, PAUSED, DISCHARGING}
 var charge_status : ChargeStatus = ChargeStatus.CHARGING
+var charge_discharge_to : float
 
 var actions_commited = false
 
+### Child accesors ###
 @onready var action_bar : Combat_ActionBar = $ActionBar
 @onready var _combat_menu : Combat_Menu = $CombatMenu
 
-# Required 
+### Required ###
 var battler : Combat_Battler
 
 
@@ -30,6 +33,8 @@ func prepare(battler_init : Combat_Battler) -> void:
 	
 	_combat_menu.prepare(self)
 	_combat_menu.set_options_of_menu(battler.get_actions())
+	
+	_update_menu_accessibility()
 
 
 # ------------------------------------------------------------------------------
@@ -39,8 +44,10 @@ func prepare(battler_init : Combat_Battler) -> void:
 func update(delta : float) -> void:
 	_update_charge(delta)
 	
-	if actions_commited and action_bar.charge_enough_for_actions(charge):
+	var charge_overflow = action_bar.charge_enough_for_actions(charge)
+	if actions_commited and charge_overflow >= 0:
 		undo_commit()
+		charge_discharge_to = charge_overflow
 		action_bar.remove_all_actions()
 		charge_status = ChargeStatus.DISCHARGING
 	
@@ -52,10 +59,11 @@ func _update_charge(delta: float) -> void:
 		if charge >= battler.max_charge:
 			charge = battler.max_charge
 			charge_status = ChargeStatus.FULL
-		
+	
 	elif charge_status == ChargeStatus.DISCHARGING:
-		charge = max(charge - delta * discharge_rate, 0)
-		if charge == 0:
+		charge = max(charge - delta * discharge_rate, charge_discharge_to)
+		if charge == charge_discharge_to:
+			_update_menu_accessibility()
 			charge_status = ChargeStatus.CHARGING
 
 
@@ -63,29 +71,35 @@ func _update_charge(delta: float) -> void:
 #    Action handling
 # ------------------------------------------------------------------------------
 
-func action_handle() -> void:
-	# TODO: All input handling should be done through here
-	
-	# There is a lot of ideas how good input to action handling should be made
-	# but for generality/modularity, each action or set of actions should be 
-	# mapped fixedly somehow, so input behaviour is expectable.
-	
-	# Note that 'queue_action()' is made to actually chose actions but this is
-	# hijacked in testing.
-	
-	pass
-
 func queue_action(action : Combat_Action) -> bool:
 	if not actions_commited and charge_status != ChargeStatus.DISCHARGING: 
-		return action_bar.try_add_action(action)
+		var successfuly_added = action_bar.try_add_action(action)
+		
+		if successfuly_added:
+			_update_menu_accessibility()
+			return true
+		 
 	return false
 
 func commit() -> void:
 	if not actions_commited and action_bar.number_actions > 0:
 		actions_commited = true
 		action_bar.mark_bar(true)
+		_lock_menu_accessibility()
 
 func undo_commit() -> void:
 	if actions_commited:
 		actions_commited = false
 		action_bar.mark_bar(false)
+		_update_menu_accessibility()
+
+
+# ------------------------------------------------------------------------------
+#    Menu handling
+# ------------------------------------------------------------------------------
+
+func _update_menu_accessibility() -> void:
+	_combat_menu.lock_options_above(battler.max_charge - action_bar.number_actions)
+
+func _lock_menu_accessibility() -> void:
+	_combat_menu.lock_options_above(0)

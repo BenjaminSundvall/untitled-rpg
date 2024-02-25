@@ -12,11 +12,19 @@ charge_cost = 1
 [node name="Use Potion" parent="ActionList" index="1" instance=ExtResource("2_msca1")]
 action_name = "Use Potion"
 charge_cost = 1
+target = 2
+effect = 1
+effect_strength = 120
 
 [node name="Heal" parent="ActionList" index="2" instance=ExtResource("2_msca1")]
 action_name = "Heal"
 charge_cost = 2
+target = 3
+effect = 1
+effect_strength = 80
 
 [node name="Summon" parent="ActionList" index="3" instance=ExtResource("2_msca1")]
 action_name = "Summon"
 charge_cost = 3
+target = 1
+effect_strength = 100

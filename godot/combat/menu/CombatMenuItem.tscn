@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8n38na4xcitb"]
+[gd_scene load_steps=4 format=3 uid="uid://b8n38na4xcitb"]
 
 [ext_resource type="Script" path="res://combat/menu/CombatMenuItem.gd" id="1_jlcnp"]
+[ext_resource type="Texture2D" uid="uid://2hvnyhfasedf" path="res://assets/test/action-cost-1.png" id="2_rvg8d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocsh3"]
 bg_color = Color(0.619608, 0.466667, 0.243137, 1)
@@ -26,8 +27,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Text" type="Label" parent="Margin"]
+[node name="Alignment" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ActionCost" type="TextureRect" parent="Margin/Alignment"]
+layout_mode = 2
+texture = ExtResource("2_rvg8d")
+expand_mode = 3
+
+[node name="Text" type="Label" parent="Margin/Alignment"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Test"

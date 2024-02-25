@@ -109,8 +109,8 @@ func _remove_all_labels() -> void:
 #    Miscellaneous
 # ------------------------------------------------------------------------------
 
-func charge_enough_for_actions(charge : float) -> bool:
-	return charge >= number_actions
+func charge_enough_for_actions(charge : float) -> float:
+	return charge - number_actions
 
 func mark_bar(active : bool):
 	if active:

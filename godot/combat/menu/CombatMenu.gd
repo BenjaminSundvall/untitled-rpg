@@ -12,7 +12,6 @@ func prepare(combat_screen : Combat_CombatScreen):
 	
 	var node_button : Button = $List/CommitButton
 	node_button.pressed.connect(combat_screen.commit)
-	
 
 
 func set_options_of_menu(actions : Array[Combat_Action]):
@@ -24,4 +23,9 @@ func set_options_of_menu(actions : Array[Combat_Action]):
 		var node_action : Combat_MenuItem = _packed_menu_item.instantiate()
 		node_action.set_action(action, _combat_screen)
 		_node_item_container.add_child(node_action)
+
+
+func lock_options_above(cost : int) -> void:
+	for child : Combat_MenuItem in _node_item_container.get_children():
+		child.lock_if_to_expensive(cost)
 
